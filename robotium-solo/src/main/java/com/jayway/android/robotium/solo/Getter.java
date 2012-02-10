@@ -17,20 +17,20 @@ import android.widget.TextView;
 
 class Getter {
 	
-	private final ActivityUtils activityUtils;
+	private final ActivityProvider activityProvider;
 	private final ViewFetcher viewFetcher;
 	private final Waiter waiter;
 
 	/**
 	 * Constructs this object.
 	 * 
-	 * @param activityUtils the {@code ActivityUtil} instance.
+	 * @param activityProvider the {@code ActivityUtil} instance.
 	 * @param viewFetcher the {@code ViewFetcher} instance.
      * @param waiter the {@code Waiter} instance
 	 */
 	
-	public Getter(ActivityUtils activityUtils, ViewFetcher viewFetcher, Waiter waiter){
-		this.activityUtils = activityUtils;
+	public Getter(ActivityProvider activityProvider, ViewFetcher viewFetcher, Waiter waiter){
+		this.activityProvider = activityProvider;
 		this.viewFetcher = viewFetcher;
 		this.waiter = waiter;
 	}
@@ -81,7 +81,7 @@ class Getter {
 	 */
 
 	public View getView(int id){
-		final Activity activity = activityUtils.getCurrentActivity(false);
+		final Activity activity = activityProvider.getCurrentActivity(false);
 
 		View view = activity.findViewById(id);
 		if (view != null)

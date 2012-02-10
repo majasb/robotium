@@ -16,18 +16,18 @@ import android.view.ViewGroup;
 
 class ViewFetcher {
 
-	private final ActivityUtils activityUtils;
+	private final ActivityProvider activityProvider;
 	private String windowManagerString;
 
 	/**
 	 * Constructs this object.
 	 *
-	 * @param activityUtils the {@code ActivityUtils} instance
+	 * @param activityProvider the {@code ActivityUtils} instance
 	 *
 	 */
 
-	public ViewFetcher(ActivityUtils activityUtils) {
-		this.activityUtils = activityUtils;
+	public ViewFetcher(ActivityProvider activityProvider) {
+		this.activityProvider = activityProvider;
 		setWindowManagerString();
 	}
 
@@ -185,7 +185,7 @@ class ViewFetcher {
 	 */
 
 	public ArrayList<View> getViews(View parent, boolean onlySufficientlyVisible) {
-		activityUtils.getCurrentActivity(false);
+        activityProvider.getCurrentActivity(false);
 		final ArrayList<View> views = new ArrayList<View>();
 		final View parentToUse;
 
@@ -274,7 +274,7 @@ class ViewFetcher {
 		View parent = getScrollOrListParent(view);
 		final float windowHeight;
 		if(parent == null){
-			windowHeight = activityUtils.getCurrentActivity(false).getWindowManager()
+			windowHeight = activityProvider.getCurrentActivity(false).getWindowManager()
 			.getDefaultDisplay().getHeight();
 		}
 		else{

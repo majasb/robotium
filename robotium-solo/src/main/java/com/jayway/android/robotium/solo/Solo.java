@@ -108,13 +108,14 @@ public class Solo {
 	public Solo(Instrumentation instrumentation, Activity activity) {
         this.sleeper = new Sleeper();
         this.activityUtils = new ActivityUtils(instrumentation, activity, sleeper);
-        this.viewFetcher = new ViewFetcher(activityUtils);
+        final ActivityProvider activityProvider = new ActivityUtilsAdapter(activityUtils);
+        this.viewFetcher = new ViewFetcher(activityProvider);
         this.dialogUtils = new DialogUtils(viewFetcher, sleeper);
         this.scroller = new Scroller(instrumentation, activityUtils, viewFetcher, sleeper);
         this.searcher = new Searcher(viewFetcher, scroller, sleeper);
-        this.waiter = new Waiter(activityUtils, viewFetcher, searcher,scroller, sleeper);
-        this.setter = new Setter(activityUtils);
-        this.getter = new Getter(activityUtils, viewFetcher, waiter);
+        this.waiter = new Waiter(activityProvider, viewFetcher, searcher,scroller, sleeper);
+        this.setter = new Setter(activityProvider);
+        this.getter = new Getter(activityProvider, viewFetcher, waiter);
         this.asserter = new Asserter(activityUtils, waiter);
         this.checker = new Checker(viewFetcher, waiter);
         this.robotiumUtils = new RobotiumUtils(instrumentation, sleeper);

@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 class Waiter {
 
-	private final ActivityUtils activityUtils;
+	private final ActivityProvider activityProvider;
 	private final ViewFetcher viewFetcher;
 	private final int TIMEOUT = 20000;
 	private final int SMALLTIMEOUT = 10000;
@@ -29,15 +29,15 @@ class Waiter {
 	/**
 	 * Constructs this object.
 	 *
-	 * @param activityUtils the {@code ActivityUtils} instance
+	 * @param activityProvider the {@code ActivityUtils} instance
 	 * @param viewFetcher the {@code ViewFetcher} instance
 	 * @param searcher the {@code Searcher} instance
 	 * @param scroller the {@code Scroller} instance
 	 * @param sleeper the {@code Sleeper} instance
 	 */
 
-	public Waiter(ActivityUtils activityUtils, ViewFetcher viewFetcher, Searcher searcher, Scroller scroller, Sleeper sleeper){
-		this.activityUtils = activityUtils;
+	public Waiter(ActivityProvider activityProvider, ViewFetcher viewFetcher, Searcher searcher, Scroller scroller, Sleeper sleeper){
+		this.activityProvider = activityProvider;
 		this.viewFetcher = viewFetcher;
 		this.searcher = searcher;
 		this.scroller = scroller;
@@ -69,7 +69,7 @@ class Waiter {
 	{
 		long now = System.currentTimeMillis();
 		final long endTime = now + timeout;
-		while(!activityUtils.getCurrentActivity().getClass().getSimpleName().equals(name) && now < endTime)
+		while(!activityProvider.getCurrentActivity().getClass().getSimpleName().equals(name) && now < endTime)
 		{
 			now = System.currentTimeMillis();
 		}
